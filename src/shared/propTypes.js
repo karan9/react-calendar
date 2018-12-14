@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-const calendarTypes = ['ISO 8601', 'US', 'Arabic', 'Hebrew'];
-const allViews = ['century', 'decade', 'year', 'month'];
+const calendarTypes = ["ISO 8601", "US", "Arabic", "Hebrew"];
+const allViews = ["century", "decade", "year", "month"];
 
 export const isCalendarType = PropTypes.oneOf(calendarTypes);
 
@@ -10,13 +10,17 @@ export const isMinDate = (props, propName, componentName) => {
 
   if (minDate) {
     if (!(minDate instanceof Date)) {
-      return new Error(`Invalid prop \`${propName}\` of type \`${typeof minDate}\` supplied to \`${componentName}\`, expected instance of \`Date\`.`);
+      return new Error(
+        `Invalid prop \`${propName}\` of type \`${typeof minDate}\` supplied to \`${componentName}\`, expected instance of \`Date\`.`
+      );
     }
 
     const { maxDate } = props;
 
     if (maxDate && minDate > maxDate) {
-      return new Error(`Invalid prop \`${propName}\` of type \`${typeof minDate}\` supplied to \`${componentName}\`, minDate cannot be larger than maxDate.`);
+      return new Error(
+        `Invalid prop \`${propName}\` of type \`${typeof minDate}\` supplied to \`${componentName}\`, minDate cannot be larger than maxDate.`
+      );
     }
   }
 
@@ -29,13 +33,17 @@ export const isMaxDate = (props, propName, componentName) => {
 
   if (maxDate) {
     if (!(maxDate instanceof Date)) {
-      return new Error(`Invalid prop \`${propName}\` of type \`${typeof maxDate}\` supplied to \`${componentName}\`, expected instance of \`Date\`.`);
+      return new Error(
+        `Invalid prop \`${propName}\` of type \`${typeof maxDate}\` supplied to \`${componentName}\`, expected instance of \`Date\`.`
+      );
     }
 
     const { minDate } = props;
 
     if (minDate && maxDate < minDate) {
-      return new Error(`Invalid prop \`${propName}\` of type \`${typeof maxDate}\` supplied to \`${componentName}\`, maxDate cannot be smaller than minDate.`);
+      return new Error(
+        `Invalid prop \`${propName}\` of type \`${typeof maxDate}\` supplied to \`${componentName}\`, maxDate cannot be smaller than minDate.`
+      );
     }
   }
 
@@ -45,14 +53,14 @@ export const isMaxDate = (props, propName, componentName) => {
 
 export const isValue = PropTypes.oneOfType([
   PropTypes.instanceOf(Date),
-  PropTypes.arrayOf(PropTypes.instanceOf(Date)),
+  PropTypes.arrayOf(PropTypes.instanceOf(Date))
 ]);
 
 export const isViews = PropTypes.arrayOf(PropTypes.oneOf(allViews));
 
 export const isClassName = PropTypes.oneOfType([
   PropTypes.string,
-  PropTypes.arrayOf(PropTypes.string),
+  PropTypes.arrayOf(PropTypes.string)
 ]);
 
 export const isView = (props, propName, componentName) => {
@@ -62,7 +70,17 @@ export const isView = (props, propName, componentName) => {
   const allowedViews = views || allViews;
 
   if (allowedViews.indexOf(view) === -1) {
-    return new Error(`Invalid prop \`${propName}\` of value \`${view}\` supplied to \`${componentName}\`, expected one of [${['a', 'b', 'c', 'd', 'e'].map(a => `"${a}"`).join(', ')}].`);
+    return new Error(
+      `Invalid prop \`${propName}\` of value \`${view}\` supplied to \`${componentName}\`, expected one of [${[
+        "a",
+        "b",
+        "c",
+        "d",
+        "e"
+      ]
+        .map(a => `"${a}"`)
+        .join(", ")}].`
+    );
   }
 
   // Everything is fine
@@ -73,7 +91,9 @@ isView.isRequired = (props, propName, componentName) => {
   const { [propName]: view } = props;
 
   if (!view) {
-    return new Error(`The prop \`${propName}\` is marked as required in \`${componentName}\`, but its value is \`${view}\`.`);
+    return new Error(
+      `The prop \`${propName}\` is marked as required in \`${componentName}\`, but its value is \`${view}\`.`
+    );
   }
 
   return isView(props, propName, componentName);
@@ -87,16 +107,11 @@ export const tileGroupProps = {
   minDate: isMinDate,
   onClick: PropTypes.func,
   onMouseOver: PropTypes.func,
-  tileClassName: PropTypes.oneOfType([
-    PropTypes.func,
-    isClassName,
-  ]),
-  tileContent: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.node,
-  ]),
+  tileClassName: PropTypes.oneOfType([PropTypes.func, isClassName]),
+  tileContent: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
   value: isValue,
   valueType: PropTypes.string,
+  multiSelected: PropTypes.array
 };
 
 export const tileProps = {
@@ -108,17 +123,10 @@ export const tileProps = {
   minDate: isMinDate,
   onClick: PropTypes.func,
   onMouseOver: PropTypes.func,
-  style: PropTypes.objectOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ])),
-  tileClassName: PropTypes.oneOfType([
-    PropTypes.func,
-    isClassName,
-  ]),
-  tileContent: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.node,
-  ]),
-  tileDisabled: PropTypes.func,
+  style: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
+  tileClassName: PropTypes.oneOfType([PropTypes.func, isClassName]),
+  tileContent: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
+  tileDisabled: PropTypes.func
 };

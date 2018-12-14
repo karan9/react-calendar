@@ -46,6 +46,7 @@ declare module "react-calendar" {
     tileDisabled?: (props: CalendarTileProperties & {activeStartDate: Date}) => boolean;
     value?: Date | Date[];
     view?: Detail;
+    noRange?: boolean;
   }
 
   export interface CalendarTileProperties {
