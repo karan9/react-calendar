@@ -179,7 +179,7 @@ var getActiveStartDate = function getActiveStartDate(props) {
 
 
   var rangeType = getView(view, minDetail, maxDetail);
-  var valueFrom = getDetailValueFrom(value, minDate, maxDate, maxDetail) || activeStartDate || new Date();
+  var valueFrom = activeStartDate || getDetailValueFrom(value, minDate, maxDate, maxDetail) || new Date();
   return (0, _dates.getBegin)(rangeType, valueFrom);
 };
 
