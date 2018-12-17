@@ -140,8 +140,8 @@ const getActiveStartDate = (props) => {
 
   const rangeType = getView(view, minDetail, maxDetail);
   const valueFrom = (
-    getDetailValueFrom(value, minDate, maxDate, maxDetail)
-    || activeStartDate
+     activeStartDate
+    || getDetailValueFrom(value, minDate, maxDate, maxDetail)
     || new Date()
   );
   return getBegin(rangeType, valueFrom);
